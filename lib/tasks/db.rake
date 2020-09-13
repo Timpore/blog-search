@@ -1,5 +1,5 @@
 def dump_path
-  Rails.root.join('db/dump.psql').to_path
+  Rails.root.join('db/dump-v2.psql').to_path
 end
 
 def db_name

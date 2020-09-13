@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
+  before_action :index, :show do
+    head :not_found if params[:domain].blank?
+    head :not_found unless Post.for_domain(params[:domain]).exists?
+  end
+
   def index
-    if params[:search]
-      @posts = Post.basic_search(params[:search]) # change this to search after implementing it
-    else
-      @posts = Post.where(domain: params[:domain])
-    end
+    @posts = Post.includes(:authors).for_domain(params[:domain]).title_search(params[:search])
   end
 
   def show

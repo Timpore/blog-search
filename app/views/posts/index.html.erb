@@ -1,6 +1,6 @@
-<%= form_with(url: "/search", method: "get", local: true) do %>
+<%= form_with(url: posts_path(domain: params[:domain]), method: "get", local: true) do %>
   <%= label_tag(:search, "Search for:") %>
-  <%= text_field_tag(:search) %>
+  <%= text_field_tag(:search, params[:search]) %>
   <%= submit_tag("Search") %>
 <% end %>
 
@@ -8,7 +8,7 @@
 
 <% @posts.each do |post| %>
   <%= post.title %>
-  Authored by <%= post.authors.pluck(:full_name).to_sentence %>
+  Authored by <%= authors(post) %>
   <%= link_to "Show", post %>
   <br/>
 <% end %>
